@@ -1,0 +1,226 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": { "text": "Malaysia Water Production (2020 - 2022)", "font": "Arial",
+    "fontWeight": "bolder",
+    "fontSize": 20,
+    "anchor": "middle",
+    "offset": 20},
+  "width": 850,
+  "height": 450,
+  "data": {
+    "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_production_states.csv"
+  },
+  "transform": [
+    { "calculate": "year(toDate(datum.date))", "as": "year" },
+    { "filter": "datum.year == year_selection" }
+  ],
+  "params": [
+    {
+      "name": "year_selection",
+      "bind": {
+        "input": "select",
+        "options": [2020, 2021, 2022],
+        "name": "Select Year: "
+      },
+      "value": 2022
+    }
+  ],
+  "layer": [
+    {
+      "mark": { "type": "bar" },
+      "encoding": {
+        "x": {
+          "field": "value",
+          "type": "quantitative",
+          "title": "Water Production (MLD)"
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": "State",
+          "sort": "-x"
+        },
+        "color": {
+          "condition": [
+            {
+              "test": "(year_selection == 2021) && (datum.state == 'Kelantan' || datum.state == 'Perlis' || datum.state == 'Perak' ||  datum.state == 'Terengganu')",
+              "value": "#800080"
+            },
+            {
+              "test": "(year_selection == 2022) && (datum.state == 'Johor' || datum.state == 'Labuan')",
+              "value": "#800080"
+            }
+          ],
+          "value": "#1f77b4"
+        },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "year", "title": "Year" },
+          { "field": "value", "title": "Water Production (MLD)", "format": "," }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -3,
+        "fontSize": 9,
+        "color": "white"
+      },
+      "encoding": {
+        "x": { "field": "value", "type": "quantitative" },
+        "y": { "field": "state", "type": "nominal", "sort": "-x" },
+        "text": { "field": "value", "type": "quantitative", "format": ",.0f" }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "x": 370,
+        "y": 75,
+        "align": "center",
+        "baseline": "top",
+        "fontSize": 12,
+        "color": "#333"
+      },
+      "encoding": {
+        "text": { "value": "Decrease from 2021" }
+      },
+      "transform": [
+        { "filter": "year_selection == 2022" }
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "x": 100,
+        "y": 430,
+        "align": "center",
+        "baseline": "top",
+        "fontSize": 12,
+        "color": "#333"
+      },
+      "encoding": {
+        "text": { "value": "Decrease from 2021" }
+      },
+      "transform": [
+        { "filter": "year_selection == 2022" }
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "x": 110,
+        "y": 400,
+        "align": "center",
+        "baseline": "top",
+        "fontSize": 12,
+        "color": "#333"
+      },
+      "encoding": {
+        "text": { "value": "Decrease from 2020" }
+      },
+      "transform": [
+        { "filter": "year_selection == 2021" }
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "x": 150,
+        "y": 370,
+        "align": "center",
+        "baseline": "top",
+        "fontSize": 12,
+        "color": "#333"
+      },
+      "encoding": {
+        "text": { "value": "Decrease from 2020" }
+      },
+      "transform": [
+        { "filter": "year_selection == 2021" }
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "x": 190,
+        "y": 300,
+        "align": "center",
+        "baseline": "top",
+        "fontSize": 12,
+        "color": "#333"
+      },
+      "encoding": {
+        "text": { "value": "Decrease from 2020" }
+      },
+      "transform": [
+        { "filter": "year_selection == 2021" }
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "x": 320,
+        "y": 140,
+        "align": "center",
+        "baseline": "top",
+        "fontSize": 12,
+        "color": "#333"
+      },
+      "encoding": {
+        "text": { "value": "Decrease from 2020" }
+      },
+      "transform": [
+        { "filter": "year_selection == 2021" }
+      ]
+    },
+    {
+      "mark": { "type": "rule", "stroke": "#000000", "strokeWidth": 2 },
+      "encoding": {
+        "x": { "value": 700 },
+        "y": { "value": 20 },
+        "y2": { "value": 50 }
+      },
+      "transform": [
+        { "filter": "year_selection == 2022" }
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "x": 700,
+        "y": 55,
+        "align": "center",
+        "baseline": "top",
+        "fontSize": 12,
+        "color": "#333"
+      },
+      "encoding": {
+        "text": { "value": "Selangor remains the highest over the three years" }
+      },
+      "transform": [
+        { "filter": "year_selection == 2022" }
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "x": 520,
+        "y": 250,
+        "align": "center",
+        "baseline": "top",
+        "fontSize": 12,
+        "color": "#333"
+      },
+      "encoding": {
+        "text": { "value": "Water production in 2020 varied significantly across states, with Selangor at the top and Labuan at the bottom." }
+      },
+      "transform": [
+        { "filter": "year_selection == 2020" }
+      ]
+    }
+  ]
+}

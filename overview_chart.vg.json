@@ -1,0 +1,118 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 400,
+  "title": {
+    "text": "Malaysia’s Water Usage and Production (2020 – 2022)",
+    "font": "Arial",
+    "fontWeight": "bolder",
+    "fontSize": 20,
+    "anchor": "middle",
+    "offset": 20
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_production_malaysia.csv"
+      },
+      "transform": [
+        {"calculate": "'Production'", "as": "category"}
+      ],
+      "mark": {"type": "line", "point": true},
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "timeUnit": "year",
+          "title": "Year"
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "title": "Volume (MLD)"
+        },
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Production", "Domestic Consumption", "Non-Domestic Consumption"],
+            "range": ["#0072B2", "#E69F00", "#56B4E9"]
+          },
+          "legend": {
+            "title": "Category",
+            "orient": "bottom",
+            "labelFont": "Arial",
+            "titleFont": "Arial"
+          }
+        },
+        "tooltip": [
+          {"field": "category", "title": "Category"},
+          {"field": "date", "type": "temporal", "timeUnit": "year", "title": "Year"},
+          {"field": "value", "type": "quantitative", "title": "Volume (MLD)"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_consumption_malaysia.csv"
+      },
+      "transform": [
+        {
+          "calculate": "datum.sector == 'domestic' ? 'Domestic Consumption' : 'Non-Domestic Consumption'",
+          "as": "category"
+        }
+      ],
+      "mark": {"type": "line", "point": true},
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "timeUnit": "year",
+          "title": "Year"
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "title": "Volume (MLD)"
+        },
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Production", "Domestic Consumption", "Non-Domestic Consumption"],
+            "range": ["#0072B2", "#E69F00", "#56B4E9"]
+          },
+          "legend": {
+            "title": "Category",
+            "orient": "bottom",
+            "labelFont": "Arial",
+            "labelFontSize": 12,
+            "titleFont": "Arial",
+            "titleFontSize": 14
+          }
+        },
+        "tooltip": [
+          {"field": "category", "title": "Category"},
+          {"field": "date", "type": "temporal", "timeUnit": "year", "title": "Year"},
+          {"field": "value", "type": "quantitative", "title": "Volume (MLD)"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"date": "2022-01-01", "y": 18500, "text": "Production increased 900 million liters/day (MLD) in 3 years"},
+          {"date": "2022-01-01", "y": 7500, "text": "Domestic consumption rose from 7,179 (2020) to 7,540 (2021), then slightly fell to 7,353 (2022)"},
+          {"date": "2022-01-01", "y": 2800, "text": "Non-Domestic Consumption: Fluctuated slightly"}
+        ]
+      },
+      "mark": {"type": "text", "dy": -15, "dx": -280, "font": "Arial", "size": 12, "fontWeight": "bold"},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "text", "type": "nominal"},
+        "color": {"value": "#808080"}
+      }
+    }
+  ]
+}

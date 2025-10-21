@@ -1,0 +1,218 @@
+body {
+    background-color: lightgray;
+}
+
+.page {
+    width: 1000px;
+    background-color: white;
+    margin: auto;
+    padding: 35px 35px 35px 35px;
+}
+
+.title_background {
+    width: 950px;
+    background-color: rgba(173, 216, 230, 0.8); /* light blue, slightly transparent */
+    margin: auto;
+    padding: 40px 20px;
+    border-radius: 20px; /* rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* subtle shadow for depth */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.title_background::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.2) 0%,
+        rgba(255,255,255,0) 50%,
+        rgba(255,255,255,0.2) 100%
+    );
+    transform: rotate(-25deg);
+    pointer-events: none;
+}
+
+.title {
+    font-family: 'Arial', sans-serif; 
+    font-size: 32px;
+    color: #0077b6; /* strong blue to match highlights */
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    gap: 20px; /* spacing between left and right boxes */
+    margin-top: 20px;
+}
+
+.description_container_left {
+    width: 30%;
+    background-color: rgba(173, 216, 230, 0.5); /* light blue with transparency */
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.section_title {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.description_container_right {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: white; /* optional: to distinguish chart area */
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+p {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.5;
+}
+
+strong {
+    color: #0077b6;  
+    font-weight: bold;
+}
+
+.chart_section_vertical {
+    display: flex;
+    flex-direction: column; /* stack description above chart */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Container for the two-column description */
+.chart_description_split {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* wrap on small screens */
+}
+
+/* Left and right description boxes */
+.description_left,
+.description_right {
+    flex: 1 1 45%; /* roughly 45% each */
+    background-color: rgba(173, 216, 230, 0.5); /* light blue transparent */
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.description_left_middle{
+  flex: 1 1 45%; /* roughly 45% each */
+  background-color: rgba(173, 216, 230, 0.5); /* light blue transparent */
+  border-radius: 15px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  display: flex;             /* enable flexbox */
+  justify-content: center;   /* horizontal centering */
+  align-items: center;       /* vertical centering */
+  
+}
+
+/* Paragraph styling */
+.description_left p,
+.description_right p {
+    font-size: 20px;
+    font-family: 'Times New Roman', serif;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Chart container styling */
+.chart_container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-sizing: border-box; /* include padding in width */
+    overflow: hidden;       /* clip anything that overflows */
+}
+
+/* Chart itself fills container */
+#water_consumption_chart {
+    width: 100%;
+    min-height: 400px;
+    font-family: Arial, sans-serif
+}
+
+#water_production_chart {
+    font-family: Arial, sans-serif
+}
+
+/* Horizontal section containing left column + right description */
+.horizontal_chart_section {
+    display: flex;
+    gap: 20px;               /* space between left and right */
+    align-items: flex-start; /* top-align left column and right box */
+    margin-top: 20px;
+}
+
+/* Left column stacked vertically */
+.left_column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;               /* space between linking box and chart */
+    width: 75%;              /* take more space for chart */
+}
+
+/* Top box for linking sentences */
+.linking_box {
+    background-color: rgba(173, 216, 230, 0.5); /* light blue semi-transparent */
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 18px;
+    line-height: 1.5;
+    font-family: 'Times New Roman', serif;
+}
+
+/* Bottom chart box in left column */
+.chart_container_vertical {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+#water_resources_chart {
+    font-family: Arial, sans-serif
+}
+
+/* Right column: description */
+.side_box.right_box {
+    width: 25%;  /* adjust width */
+    background-color: rgba(173, 216, 230, 0.5); /* light blue */
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', serif;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+#breakdown_chart {
+    font-family: Arial, sans-serif
+}
+
+#wtp_chart {
+    font-family: Arial, sans-serif
+}
+
+

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <script src="vega_lite_vis.js"></script>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="title_background">
+             <h1 class="title">Malaysia’s Water Usage and Supply: Trends from 2020 to 2022</h1>
+        </div>
+
+        <div class="container">
+            <!-- Left Box: Overview + Description -->
+            <div class="description_container_left">
+                <div class="section_background">
+                    <h1 class="section_title">Overview</h1>
+                </div>
+                <p>From <strong>2020 to 2022</strong>, Malaysia’s <strong>water supply</strong> consistently exceeded demand, with <strong>total production</strong>
+                    rising from <strong>17,928 to 18,828</strong> million liters per day (MLD). 
+                    <strong>Domestic water consumption</strong> peaked in <strong>2021</strong> before slightly declining in <strong>2022</strong>, 
+                    while <strong>non-domestic consumption</strong> fluctuated over the same period. 
+                    These national trends provide context for understanding how water demand and supply vary across states.</p>
+            </div>
+
+            <!-- Right Box: Chart -->
+            <div class="description_container_right">
+                <div id="overview_chart"></div>
+            </div>
+        </div>
+
+        <div class="chart_section_vertical">
+            <div class="chart_description_split">
+                <div class="description_left">
+                    <h1 class="section_title">Water Usage by State (Per Capita)</h1>
+                    <p>Although Malaysia’s <strong>total water production</strong> consistently exceeded national demand from <strong>2020 to 2022</strong>, per capita usage varies widely across states, showing how regional <strong>water demand</strong> contributes to the national picture.</p>
+                </div>
+                <div class="description_right">
+                    <p>Some states show higher <strong>domestic and non-domestic consumption</strong>, while others remain lower. Explore the map using the <strong>filters</strong> to see how <strong>water demand</strong> shifts by <strong>year</strong> and <strong>sector</strong>, revealing key <strong>regional patterns</strong>. Comparing these trends with national supply helps identify where demand aligns with or diverges from production.</p>
+                </div>
+            </div>
+
+            <div class="chart_container">
+                <div id="water_consumption_chart"></div>
+            </div>
+        </div>
+
+        <div class="chart_section_vertical">
+            <div class="chart_description_split">
+                <div class="description_left">
+                    <h1 class="section_title">Water Production by State</h1>
+                    <p>This bar chart presents <strong>total water production</strong> for each <strong>Malaysian state</strong> from <strong>2020 to 2022</strong>. While some states consistently produce higher volumes of water, others contribute less to national supply. Comparing production with <strong>per capita consumption</strong> highlights states where supply comfortably meets demand.</p>
+                </div>
+                <div class="description_left_middle">
+                    <p>Use the <strong>year filter</strong> to explore how production changes over time and identify states with growing or declining output, linking back to the national overview and state-level usage patterns.</p>
+                </div>
+            </div>
+
+            <div class="chart_container">
+                <div id="water_production_chart"></div>
+            </div>
+        </div>
+
+        <div class="section_card">
+            <div class="horizontal_chart_section">
+
+                <div class="left_column">
+                    <div class="linking_box">
+                        <p>After reviewing state-level <strong>production</strong>, examining <strong>raw water extraction</strong> reveals the foundation of Malaysia’s <strong>water supply</strong> and its capacity to meet both national and regional demand.</p>
+                    </div>
+
+                    <div class="chart_container_vertical">
+                        <div id="water_resources_chart"></div>
+                    </div>
+                </div>
+
+                <div class="side_box right_box">
+                    <h1 class="section_title">Total Raw Water Resources</h1>
+                    <p>This line chart shows Malaysia’s <strong>total raw water extraction</strong> from <strong>2020 to 2022</strong>. By examining <strong>raw water resources</strong>, we can understand the foundation of the nation’s <strong>water supply</strong> and see how extraction trends support overall <strong>production</strong>. Peaks and dips may indicate seasonal or regional factors affecting <strong>availability</strong>, which in turn influence how water reaches each state.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart_section_vertical">
+            <div class="chart_description_split">
+                <div class="description_left_middle">
+                    <p>After examining <strong>total raw water extraction</strong>, it’s important to see how this water is sourced. The charts below reveal the contributions of <strong>rivers, dams, groundwater, and other sources</strong> to Malaysia’s supply for each year, linking natural resources to production capacity.</p>
+                </div>
+                <div class="description_right">
+                    <h1 class="section_title">Raw Water Sources: River, Dam & Others</h1>
+                    <p>This set of donut charts illustrates the composition of Malaysia’s <strong>raw water sources</strong> from <strong>2020 to 2022</strong>. Each chart represents a year, showing the share of water extracted from <strong>rivers, dams and other sources</strong>. Understanding the split highlights which <strong>sources dominate national supply</strong> and how dependency on each source may change over time, also showing the influence of <strong>annual rainfall</strong> on resource availability.</p>
+                </div>
+            </div>
+
+            <div class="chart_container">
+                <div id="breakdown_chart"></div>
+            </div>
+        </div>
+
+        <div class="section_card">
+            <div class="horizontal_chart_section">
+                <div class="left_column">
+                    <div class="linking_box">
+                        <p>After examining <strong>raw water extraction</strong> and <strong>source composition</strong>, it is important to see how <strong>annual rainfall</strong> impacts the availability of <strong>raw water sources</strong> and overall <strong>water supply</strong> in Malaysia.</p>
+                    </div>
+
+                    <div class="chart_container_vertical">
+                        <div id="precipitation_chart"></div>
+                    </div>
+                </div>
+
+                <div class="side_box right_box">
+                    <h1 class="section_title">Rainfall and Water Supply</h1>
+                    <p>This line chart compares Malaysia’s <strong>annual rainfall</strong> with total <strong>water supply</strong> from <strong>2020 to 2022</strong>. Rainfall is the main contributor to <strong>raw water sources</strong> — rivers, dams, and groundwater — directly influencing <strong>availability</strong> and <strong>production</strong>. Observing these trends helps identify how precipitation affects water supply and links to infrastructure capacity.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart_section_vertical">
+            <div class="chart_description_split">
+                <div class="description_left_middle">
+                    <p>After examining <strong>rainfall patterns</strong>, <strong>raw water extraction</strong>, and <strong>source composition</strong>, we now turn to <strong>water treatment plants (WTPs)</strong> — the infrastructure that converts <strong>raw water</strong> into safe, usable supply for households and industries across Malaysia.</p>
+                </div>
+                <div class="description_right">
+                    <h1 class="section_title">Water Treatment Plants (WTP) by State</h1>
+                    <p>This bar chart shows the number of <strong>water treatment plants (WTPs)</strong> in each Malaysian state. The distribution of WTPs reflects how well each state can process <strong>raw water</strong> into potable <strong>water supply</strong>, linking directly to <strong>rainfall, water sources, and state-level production</strong>. States with more plants generally have higher <strong>treatment capacity</strong>, ensuring reliable water supply for both <strong>domestic and non-domestic users</strong>.</p>
+                </div>
+            </div>
+
+            <div class="chart_container">
+                <div id="wtp_chart"></div>
+            </div>
+        </div>
+
+        <div class="chart_section_vertical">
+            <div class="chart_description_split">
+                <div class="description_left">
+                    <h1 class="section_title">Conclusion</h1>
+                    <p>From 2020 to 2022, Malaysia’s <strong>water supply</strong> consistently exceeded demand, supported by rising <strong>production</strong> and well-distributed <strong>water treatment plants</strong> across states. <strong>Domestic and non-domestic consumption</strong> varied regionally, while <strong>raw water sources</strong> and <strong>annual rainfall</strong> ensured sufficient availability.</p>
+                </div>
+                <div class="description_left_middle">
+                    <p>The interaction between <strong>rainfall, sources, production, and infrastructure</strong> highlights the importance of effective water resource management. Together, these insights illustrate how natural resources, production, infrastructure, and usage patterns interact to shape Malaysia’s water system, providing a basis for sustainable management and guiding future strategies.</p>
+                </div>
+            </div>
+        </div>
+
+         <!-- Authorship Section -->
+        <div class="chart_section_vertical">
+            <div class="chart_description_split">
+                <div class="description_left">
+                    <h1 class="section_title">Authorship</h1>
+                    <p><strong>Name:</strong> Ng Yee Xuan</p>
+                    <p><strong>Date:</strong> 20 October 2025</p>
+                </div>
+                <div class="description_right">
+                    <h2 class="section_title">Data Sources</h2>
+                    <ul>
+                        <li><a href="https://open.dosm.gov.my/data-catalogue/water_consumption" target="_blank">DOSM - Water Consumption</a></li>
+                        <li><a href="https://open.dosm.gov.my/data-catalogue/water_production" target="_blank">DOSM - Water Production</a></li>
+                        <li><a href="https://www.kaggle.com/datasets/wenjiun/malaysia-population-dataset" target="_blank">Kaggle - Malaysia Population Dataset</a></li>
+                        <li><a href="https://climateknowledgeportal.worldbank.org/country/malaysia/climate-data-historical" target="_blank">World Bank - Climate Knowledge Portal</a></li>
+                        <li><a href="https://www.span.gov.my/document/upload/Q3O4LCEjI8HFumOTO2OMxO64o9tNAnOw.pdf" target="_blank">SPAN - Water Supply Report</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

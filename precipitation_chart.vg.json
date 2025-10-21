@@ -1,0 +1,123 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 530,
+  "height": 375,
+  "title": {
+    "text": "Annual Rainfall and Water Supply Trends Across Malaysia (2020 – 2022)",
+    "font": "Arial",
+    "fontWeight": "bolder",
+    "fontSize": 20,
+    "anchor": "middle",
+    "offset": 20
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/precipitation_waterproduction.csv"
+  },
+  "transform": [
+    { "filter": "datum.Precipitation > 0 && datum.WaterProduction > 0" },
+    {
+      "fold": ["Precipitation", "WaterProduction"],
+      "as": ["Measurement", "Value"]
+    },
+    {
+      "calculate": "datum.Measurement == 'Precipitation' ? 'Rainfall' : 'Water Supply'",
+      "as": "Type"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": { "labelAngle": 0 }
+    },
+    "color": {
+      "field": "Type",
+      "type": "nominal",
+      "title": "Measurement Type",
+      "scale": {
+        "domain": ["Rainfall", "Water Supply"],
+        "range": ["#2196f3", "#ff9800"]
+      },
+      "legend": {
+        "orient": "bottom",
+        "direction": "horizontal"
+      }
+    },
+    "strokeDash": {
+      "field": "Type",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Rainfall", "Water Supply"],
+        "range": [[], [5, 5]]
+      },
+      "legend": null
+    }
+  },
+  "layer": [
+    {
+      "transform": [{ "filter": "datum.Type == 'Rainfall'" }],
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "point": { "filled": true, "size": 150 }
+      },
+      "encoding": {
+        "y": {
+          "field": "Value",
+          "type": "quantitative",
+          "title": "Annual Rainfall (mm)",
+          "axis": { "orient": "left", "titleColor": "#000000" }
+        },
+        "tooltip": [
+          { "field": "Year", "type": "ordinal" },
+          { "field": "Type", "type": "nominal" },
+          { "field": "Value", "title": "Rainfall (mm)" }
+        ]
+      }
+    },
+    {
+      "transform": [{ "filter": "datum.Type == 'Water Supply'" }],
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3,
+        "strokeDash": [5, 5],
+        "point": { "filled": true, "size": 150 }
+      },
+      "encoding": {
+        "y": {
+          "field": "Value",
+          "type": "quantitative",
+          "title": "Total Water Supply (MLD)",
+          "axis": { "orient": "right", "titleColor": "#000000" }
+        },
+        "tooltip": [
+          { "field": "Year", "type": "ordinal" },
+          { "field": "Type", "type": "nominal" },
+          { "field": "Value", "title": "Water Supply (MLD)" }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "align": "center"
+      },
+      "encoding": {
+        "x": { "datum": "2021" },
+        "y": { "value": 100 },
+        "text": {
+          "value": "Years with higher rainfall generally coincide with higher water production"
+        },
+        "color": { "value": "#000000" }
+      }
+    }
+  ],
+  "resolve": {
+    "scale": { "y": "independent" }
+  },
+  "config": {
+    "axis": { "labelFontSize": 12, "titleFontSize": 13 }
+  }
+}

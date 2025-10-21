@@ -1,0 +1,86 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 630,
+  "height": 465,
+  "title": {
+    "text": "Total Raw Water Extraction (2020 - 2022)",
+    "subtitle": "Note: Data excludes Sabah and Sarawak.",
+    "fontSize": 20,
+    "fontWeight": "bolder",
+    "anchor": "middle"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/total_raw_water_extraction.csv"
+  },
+  "layer": [
+    {
+      "mark": {"type": "line", "point": true, "color": "#0072B2"},
+      "encoding": {
+        "x": {"field": "Year", "type": "ordinal", "title": "Year", "axis": {"labelAngle": 0}},
+        "y": {"field": "Value", "type": "quantitative", "title": "Volume (MLD)"},
+        "tooltip": [
+          {"field": "Year", "type": "ordinal", "title": "Year"},
+          {"field": "Value", "type": "quantitative", "title": "Volume (MLD)"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"Year": "2021"}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 2,
+        "strokeDash": [4, 4],
+        "color": "#D55E00"
+      },
+      "encoding": {
+        "x": {"field": "Year", "type": "ordinal"},
+        "y": {"value": 0},
+        "y2": {"value": 460}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"Year": 2021, "y": 15884, "text": "Change of -195 MLD (2020 → 2021)"}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "dy": 55,
+        "dx": 180,
+        "color": "#000000",
+        "size": 14,
+        "align": "center"
+      },
+      "encoding": {
+        "x": {"field": "Year", "type": "ordinal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "text", "type": "nominal"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"Year": 2022, "y": 16218, "text": "Change of +334 MLD (2021 → 2022)"}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "dy": 60,
+        "dx": 450,
+        "color": "#000000",
+        "size": 14,
+        "align": "center"
+      },
+      "encoding": {
+        "x": {"field": "Year", "type": "ordinal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "text", "type": "nominal"}
+      }
+    }
+  ]
+}

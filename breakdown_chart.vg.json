@@ -1,0 +1,149 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Composition of Malaysia’s Raw Water Sources (2020 – 2022)",
+    "subtitle": "Note: Data excludes Sabah and Sarawak.",
+    "fontSize": 20,
+    "fontWeight": "bolder"
+  },
+  "hconcat": [
+    {
+      "width": 280,
+      "height": 300,
+      "data": {
+        "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/extraction.csv"
+      },
+      "transform": [
+        {"filter": "datum.Year == '2020'"},
+        {
+          "window": [{"op": "sum", "field": "Value", "as": "total"}]
+        },
+        {
+          "window": [{"op": "sum", "field": "Value", "as": "cumulative"}],
+          "sort": [{"field": "Source"}]
+        },
+        {
+          "calculate": "datum.cumulative - datum.Value / 2",
+          "as": "midpoint"
+        }
+      ],
+      "layer": [
+        {
+          "mark": {"type": "arc", "innerRadius": 80},
+          "encoding": {
+            "theta": {"field": "Value", "type": "quantitative"},
+            "color": {"field": "Source", "type": "nominal", "scale": {"scheme": "set2"}, "legend": {"title": "Source"}},
+            "tooltip": [
+              {"field": "Source"},
+              {"field": "Value", "type": "quantitative", "format": ".1f", "title": "Extraction(%)"},
+              {"field": "Year"}
+            ]
+          }
+        },
+        {
+          "mark": {"type": "text", "radius": 120, "fontSize": 13, "fontWeight":"bold", "color": "#000000"},
+          "encoding": {
+            "theta": {"field": "midpoint", "type": "quantitative"},
+            "text": {"field": "Value", "format": ".1f"}
+          }
+        },
+        {
+          "mark": {"type": "text", "fontSize": 24, "fontWeight": "bold", "align": "center", "baseline": "middle", "color": "#000000"},
+          "encoding": {"text": {"value": "2020"}}
+        }
+      ]
+    },
+    {
+      "width": 280,
+      "height": 300,
+      "data": {
+        "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/extraction.csv"
+      },
+      "transform": [
+        {"filter": "datum.Year == '2021'"},
+        {
+          "window": [{"op": "sum", "field": "Value", "as": "total"}]
+        },
+        {
+          "window": [{"op": "sum", "field": "Value", "as": "cumulative"}],
+          "sort": [{"field": "Source"}]
+        },
+        {
+          "calculate": "datum.cumulative - datum.Value / 2",
+          "as": "midpoint"
+        }
+      ],
+      "layer": [
+        {
+          "mark": {"type": "arc", "innerRadius": 80},
+          "encoding": {
+            "theta": {"field": "Value", "type": "quantitative"},
+            "color": {"field": "Source", "type": "nominal", "scale": {"scheme": "set2"}, "legend": null},
+            "tooltip": [
+              {"field": "Source"},
+              {"field": "Value", "type": "quantitative", "format": ".1f", "title": "Extraction(%)"},
+              {"field": "Year"}
+            ]
+          }
+        },
+        {
+          "mark": {"type": "text", "radius": 120, "fontSize": 13, "fontWeight":"bold", "color": "#000000"},
+          "encoding": {
+            "theta": {"field": "midpoint", "type": "quantitative"},
+            "text": {"field": "Value", "format": ".1f"}
+          }
+        },
+        {
+          "mark": {"type": "text", "fontSize": 24, "fontWeight": "bold", "align": "center", "baseline": "middle", "color": "#000000"},
+          "encoding": {"text": {"value": "2021"}}
+        }
+      ]
+    },
+    {
+      "width": 280,
+      "height": 300,
+      "data": {
+        "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/extraction.csv"
+      },
+      "transform": [
+        {"filter": "datum.Year == '2022'"},
+        {
+          "window": [{"op": "sum", "field": "Value", "as": "total"}]
+        },
+        {
+          "window": [{"op": "sum", "field": "Value", "as": "cumulative"}],
+          "sort": [{"field": "Source"}]
+        },
+        {
+          "calculate": "datum.cumulative - datum.Value / 2",
+          "as": "midpoint"
+        }
+      ],
+      "layer": [
+        {
+          "mark": {"type": "arc", "innerRadius": 80},
+          "encoding": {
+            "theta": {"field": "Value", "type": "quantitative"},
+            "color": {"field": "Source", "type": "nominal", "scale": {"scheme": "set2"}, "legend": null},
+            "tooltip": [
+              {"field": "Source"},
+              {"field": "Value", "type": "quantitative", "format": ".1f", "title": "Extraction(%)"},
+              {"field": "Year"}
+            ]
+          }
+        },
+        {
+          "mark": {"type": "text", "radius": 120, "fontSize": 13, "fontWeight":"bold", "color": "#000000"},
+          "encoding": {
+            "theta": {"field": "midpoint", "type": "quantitative"},
+            "text": {"field": "Value", "format": ".1f"}
+          }
+        },
+        {
+          "mark": {"type": "text", "fontSize": 24, "fontWeight": "bold", "align": "center", "baseline": "middle", "color": "#000000"},
+          "encoding": {"text": {"value": "2022"}}
+        }
+      ]
+    }
+  ]
+}

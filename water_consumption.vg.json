@@ -1,0 +1,282 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Malaysia Water Consumption per 1,000 People (2020 - 2022)",
+    "font": "Arial",
+    "fontWeight": "bolder",
+    "fontSize": 20,
+    "anchor": "middle",
+    "offset": 20},
+  "width": 1000,
+  "height": 450,
+  "params": [
+    {
+      "name": "year_selection",
+      "value": 2022,
+      "bind": {
+        "input": "select",
+        "options": [2020, 2021, 2022],
+        "labels": ["2020", "2021", "2022"],
+        "name": "Select Year: "
+      }
+    },
+    {
+      "name": "consumptionType",
+      "value": "domestic",
+      "bind": {
+        "input": "radio",
+        "options": ["domestic", "nondomestic"],
+        "labels": ["Domestic", "Non-Domestic"],
+        "name": "Usage Type: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator",
+    "center": [107.58, 4],
+    "scale": 2250
+  },
+  "layer": [
+    {
+      "data": { "graticule": { "step": [3, 3] } },
+      "mark": { "type": "geoshape", "fill": null, "stroke": "lightgray" }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/Malaysia_States.json",
+        "format": { "type": "topojson", "feature": "my" }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_consumption_2020.csv"
+            },
+            "key": "state",
+            "fields": ["value"]
+          },
+          "as": ["domestic_2020"]
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_consumption_2021.csv"
+            },
+            "key": "state",
+            "fields": ["value"]
+          },
+          "as": ["domestic_2021"]
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_consumption_2022.csv"
+            },
+            "key": "state",
+            "fields": ["value"]
+          },
+          "as": ["domestic_2022"]
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_consumption_non_2020.csv"
+            },
+            "key": "state",
+            "fields": ["value", "sector", "date"]
+          },
+          "as": ["nondomestic_2020", "sector_2020", "date_2020"]
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_consumption_non_2021.csv"
+            },
+            "key": "state",
+            "fields": ["value", "sector", "date"]
+          },
+          "as": ["nondomestic_2021", "sector_2021", "date_2021"]
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/water_consumption_non_2022.csv"
+            },
+            "key": "state",
+            "fields": ["value", "sector", "date"]
+          },
+          "as": ["nondomestic_2022", "sector_2022", "date_2022"]
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/Population_2020.csv"
+            },
+            "key": "state",
+            "fields": ["population"]
+          },
+          "as": ["population_2020"]
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/Population_2021.csv"
+            },
+            "key": "state",
+            "fields": ["population"]
+          },
+          "as": ["population_2021"]
+        },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/YeeXuanNg/FIT3179-Ass2/refs/heads/main/Population_2022.csv"
+            },
+            "key": "state",
+            "fields": ["population"]
+          },
+          "as": ["population_2022"]
+        },
+        {
+          "calculate": "consumptionType == 'domestic' ? (year_selection == 2020 ? toNumber(datum.domestic_2020) : (year_selection == 2021 ? toNumber(datum.domestic_2021) : toNumber(datum.domestic_2022))) : (year_selection == 2020 ? toNumber(datum.nondomestic_2020) : (year_selection == 2021 ? toNumber(datum.nondomestic_2021) : toNumber(datum.nondomestic_2022)))",
+          "as": "value"
+        },
+        {
+          "calculate": "year_selection == 2020 ? toNumber(datum.population_2020) : (year_selection == 2021 ? toNumber(datum.population_2021) : toNumber(datum.population_2022))",
+          "as": "population"
+        },
+        {
+          "calculate": "datum.value / datum.population * 1000",
+          "as": "water_per_1k"
+        },
+        {
+          "calculate": "datum.value == null || datum.value == '' || isNaN(datum.value) ? 'Data is not available' : format(datum.value,'')",
+          "as": "value_display"
+        },
+        {
+          "calculate": "datum['water_per_1k'] == 0 || datum['water_per_1k'] == null || !isFinite(datum['water_per_1k']) ? 'Data is not available' : format(datum['water_per_1k'],'.2f')",
+          "as": "consumption_display"
+        },
+        {
+          "calculate": "datum.population == null || datum.population == '' || isNaN(datum.population) ? 'Data is not available' : format(datum.population, '.1f')",
+          "as": "population_display"
+        },
+        {
+          "calculate": "datum.value != null && datum.value != '' && !isNaN(datum.value) && datum.population != null && !isNaN(datum.population)",
+          "as": "hasData"
+        },
+        {
+          "calculate": "consumptionType == 'domestic' ? 'Domestic' : 'Non-Domestic'",
+          "as": "type_label"
+        },
+        {
+          "calculate": "year_selection == 2020 ? 2020 : (year_selection == 2021 ? 2021 : 2022)",
+          "as": "year_display"
+        }
+      ],
+      "mark": { "type": "geoshape", "stroke": "white" },
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "datum.hasData",
+            "field": "water_per_1k",
+            "type": "quantitative",
+            "scale": { "scheme": "blues" },
+            "legend": { "title": "MLD per 1,000 people" , "orient": "bottom", "labelFont": "Arial",
+            "labelFontSize": 12,
+            "titleFont": "Arial",
+            "titleFontSize": 14}
+          },
+          "value": "#808080"   
+        },
+        "tooltip": [
+          { "field": "properties.name", "title": "State" },
+          { "field": "type_label", "title": "Usage Type" },
+          { "field": "year_display", "title": "Year" },
+          { "field": "value_display", "title": "Total Consumption (MLD)" },
+          { "field": "population_display", "title": "Population" },
+          { "field": "consumption_display", "title": "MLD per 1,000 people" }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"lon": 98.8, "dot_lon":101.5, "lat": 3.1, "dot_lat": 3.3, "text": "Selangor consumes 3.41 times", "year": 2020, "type": "domestic"},
+          {"lon": 98.8, "dot_lon":101.5, "lat": 2.8, "dot_lat": 3.3, "text": "more water per capita than Sabah", "year": 2020, "type": "domestic"},
+          {"lon": 112.5, "dot_lon":116.8, "lat": 5.2, "dot_lat": 5.2, "text": "Sabah has the lowest consumption at", "year": 2020, "type": "domestic"},
+          {"lon": 112.6, "dot_lon":116.8, "lat": 4.9, "dot_lat": 5.2, "text": "91.55 MLD per 1,000 people", "year": 2020, "type": "domestic"},
+
+          {"lon": 98.2, "dot_lon":101.5, "lat": 3.1, "dot_lat": 3.3, "text": "Selangor: Increased 4.6% from 2020,", "year": 2021, "type": "domestic"},
+          {"lon": 98.2, "dot_lon":101.5, "lat": 2.8, "dot_lat": 3.3, "text": "remaining the highest", "year": 2021, "type": "domestic"},
+          {"lon": 98, "dot_lon":100.5, "lat": 5, "dot_lat": 5.3, "text": "Pulau Pinang: 314.37 MLD", "year": 2021, "type": "domestic"},
+          {"lon": 98, "dot_lon":100.5, "lat": 4.7, "dot_lat": 5.3, "text": "per 1,000 people (2nd highest)", "year": 2021, "type": "domestic"},
+          {"lon": 112.5, "dot_lon":116.8, "lat": 5.2, "dot_lat": 5.2, "text": "Sabah increased 36% from 2020", "year": 2021, "type": "domestic"},
+
+          {"lon": 96.2, "dot_lon":101.5, "lat": 3.1, "dot_lat": 3.3, "text": "Selangor:", "year": 2022, "type": "domestic"},
+          {"lon": 98.2, "dot_lon":101.5, "lat": 2.8, "dot_lat": 3.3, "text": "316.30 MLD per 1,000 people (highest)", "year": 2022, "type": "domestic"},
+          {"lon": 104.8, "dot_lon":102.1, "lat": 6.2, "dot_lat": 5.4, "text": "Kelantan: 88.50 MLD (less than 30% of Selangor)", "year": 2022, "type": "domestic"},
+          {"lon": 111.5, "lat": 5,"text": "East Malaysia shows lower consumption rates", "year": 2022, "type": "domestic"},
+
+          {"lon": 97.9, "dot_lon":100.5, "lat": 4.8, "dot_lat": 5.3, "text": "Pulau Pinang overtakes in 2022", "year": 2022, "type": "nondomestic"},
+          {"lon": 97.9, "dot_lon":100.5, "lat": 4.5, "dot_lat": 5.3, "text": "with 191.85 MLD per 1,000 people", "year": 2022, "type": "nondomestic"},
+          {"lon": 106.2, "dot_lon":102.1, "lat": 5.8, "dot_lat": 5.4, "text": "Kelantan stays lowest at 42.06 MLD per 1,000 people", "year": 2022, "type": "nondomestic"},
+          {"lon": 100.2, "dot_lon":100.2, "lat": 6.7, "dot_lat": 6.5, "text": "Perlis: 62.11 MLD per 1,000 people 62% sharp increase vs 2021", "year": 2022, "type": "nondomestic"},
+
+          {"lon": 98.5, "dot_lon":101.5, "lat": 3, "dot_lat": 3.3, "text": "Selangor remains highest in 2021", "year": 2021, "type": "nondomestic"},
+          {"lon": 104.5, "dot_lon":102.1, "lat": 6.2, "dot_lat": 5.4, "text": "Kelantan remain lowest nationwide", "year": 2021, "type": "nondomestic"},
+          {"lon": 111.5, "lat": 5, "text": "Sabah and Sarawak record similar levels to 2020", "year": 2021, "type": "nondomestic"},
+
+          {"lon": 98.8, "dot_lon":101.5, "lat": 3.2, "dot_lat": 3.3, "text": "Selangor leads at 194.73 MLD", "year": 2020, "type": "nondomestic"},
+          {"lon": 99, "dot_lon":101.5, "lat": 2.8, "dot_lat": 3.3, "text": "per 1,000 people", "year": 2020, "type": "nondomestic"},
+          {"lon": 104.5, "dot_lon":102.1, "lat": 6.2, "dot_lat": 5.4, "text": "Kelantan lowest below 43 MLD per 1,000 people", "year": 2020, "type": "nondomestic"}
+        ]
+      },
+      "transform": [
+        {
+          "filter": "datum.year == year_selection && datum.type == consumptionType"
+        }
+      ],
+      "layer": [
+        {
+          "mark": {
+            "type": "point",
+            "filled": true,
+            "size": 100,
+            "color": "red"
+          },
+          "encoding": {
+            "longitude": {"field": "dot_lon", "type": "quantitative"},
+            "latitude": {"field": "dot_lat", "type": "quantitative"}
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "fontSize": 12,
+            "fontWeight": "bold",
+            "font": "Arial",
+            "color": "darkorange",
+            "dy": -15
+          },
+          "encoding": {
+            "longitude": {"field": "lon", "type": "quantitative"},
+            "latitude": {"field": "lat", "type": "quantitative"},
+            "text": {"field": "text"}
+          }
+        }
+      ]
+    }
+  ]
+}
